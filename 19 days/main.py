@@ -13,7 +13,6 @@ result = calculator(2,3,add)
 print(result)
 """
 is_race_on = False
-new_turtle = Turtle()
 screen = Screen()
 screen.setup(width = 500, height = 400) #set the screen size to 500 x 400
 user_bet = screen.textinput(title = "Make your bet", prompt = "Which turtle will win the race? Enter a color!: ")
@@ -36,9 +35,14 @@ while is_race_on:
 
     for turtle in all_turtles:
         if turtle.xcor() > 230:
+            is_race_on = False
             winning_color = turtle.pencolor()
             if winning_color == user_bet:
-                print("You've won! The {winning_color}turtle is the winner!")
+                print(f"You've won! The {winning_color}turtle is the winner!")
+            else:
+                print(f"You've lost! The {winning_color}turtle is the winner!")
+
+
         rand_distance = random.randint(0,10)
         turtle.forward(rand_distance)
 
