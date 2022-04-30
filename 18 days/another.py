@@ -43,9 +43,9 @@ def random_direction():
 
     return
 
+
 while True:
     random_color()
 
     tim.forward(50)
     random_direction()
-
