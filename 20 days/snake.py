@@ -12,7 +12,6 @@ class Snake:
         self.create_snake()
         self.head = self.snake_body[0]
 
-
     def create_snake(self):
         for turtle_index in range(0, 3):
             new_body = Turtle(shape="square")
