@@ -1,5 +1,7 @@
-from turtle import Turtle, Screen
+from turtle import Screen
 from snake import Snake
+from food import Food
+from scoreboard import Score
 import time
 
 screen = Screen()
@@ -9,6 +11,8 @@ screen.title("Snake Game")
 screen.tracer(0)  # until we call update, the screen will show nothing
 
 snake = Snake()
+food = Food()
+score = Score()
 
 screen.listen()
 screen.onkey(fun=snake.up, key="w")
@@ -22,5 +26,25 @@ while game_is_on:
     time.sleep(0.1)  # once the whole snake body finishes to move, I get my screen updated
 
     snake.move()
+
+    # detect collision with food.
+    if snake.head.distance(food) < 15:
+        food.refresh()
+        snake.extend()
+        score.write_score()
+
+    # detect collision with wall.
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        game_is_on = False
+        score.game_over()
+
+    # detect collision with tail.
+    for segment in snake.snake_body:
+        if segment == snake.head:
+            pass
+
+        elif snake.head.distance(segment) < 10:
+            game_is_on = False
+            score.game_over()
 
 screen.exitonclick()

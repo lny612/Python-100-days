@@ -4,23 +4,30 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
+STARTING_POSITION = [[0,0],[-20,0],[-40,0]]
 
 
-class Snake:
+class Snake(Turtle):
     def __init__(self):
-        self.x_position = 0
+        super().__init__()
         self.snake_body = []
         self.create_snake()
         self.head = self.snake_body[0]
 
     def create_snake(self):
-        for turtle_index in range(0, 3):
-            new_body = Turtle(shape="square")
-            new_body.penup()
-            new_body.color("white")
-            new_body.goto(x=self.x_position, y=0)
-            self.x_position -= 20
-            self.snake_body.append(new_body)
+        for position in STARTING_POSITION:
+            self.add_segment(position)
+
+    def add_segment(self, position):
+        new_body = Turtle(shape="square")
+        new_body.penup()
+        new_body.color("white")
+        new_body.goto(position)
+        self.snake_body.append(new_body)
+
+    def extend(self):
+        # add a new segment to the snake.
+        self.add_segment(self.snake_body[-1].position())
 
     def move(self):
         for component in range(len(self.snake_body) - 1, 0, -1):
